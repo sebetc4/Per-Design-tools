@@ -1,0 +1,23 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body,
+html {
+	margin: 0;
+	position: relative;
+}
+
+.main {
+	padding-top: $header-height;
+	min-height: 100vh;
+	transition: 0.3s;
+	z-index: 0;
+
+	&--active-menu {
+		margin-left: 5vw;
+		transform: perspective(1200px) rotateY(-12deg);
+	}
+}
