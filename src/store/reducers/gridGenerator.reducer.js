@@ -111,7 +111,6 @@ export default function appReducer(state = gridGeneratorDefaultState, action) {
         }
         case DELETE_COLOR: {
             const { id, index } = action.payload;
-            console.log(index);
             const colorList = [...state.color.colorList];
             colorList.splice(index, 1);
             const gridList = state.grid.gridList.map((box) => (box && box.colorId === id ? null : box));

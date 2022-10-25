@@ -17,7 +17,6 @@ export default function ColorSettings({ gridState, colorState, dispatchColorStat
                 setMainBoxesColor(color);
                 break;
             default:
-                console.log(color.hex)
                 setHexCurrentColor(color);
         }
     };

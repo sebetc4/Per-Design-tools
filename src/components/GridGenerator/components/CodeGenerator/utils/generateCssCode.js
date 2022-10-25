@@ -1,5 +1,4 @@
 const generateColorSelector = (gridList, colorList) => {
-    console.log(gridList);
     let code = '';
     colorList.forEach((color) => {
         for (let box of gridList) {
