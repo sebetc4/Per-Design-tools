@@ -23,6 +23,11 @@ export default function (gridColumns, boxSize, boxBorderRadius, spaceBetweenBox,
     --background-color: ${backgroundColor};
 }
 .grid-wrapper{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: ${boxSize + spaceBetweenBox}px;
     background-color: ${backgroundColor};
 }
 .grid {
