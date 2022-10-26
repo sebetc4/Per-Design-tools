@@ -2,6 +2,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { setAlert } from '../../store/actions/app.actions';
 import {
     addColor,
     setBoxSize,
@@ -15,20 +16,23 @@ import {
     setMainBoxesColor,
     setBackgroundColor,
     setBoxBorderRadius,
-} from '../../store/actions/gridGenerator..actions';
+} from '../../store/actions/gridGenerator.actions';
 
 import { CodeGenerator, Grid, Settings } from './components';
 
 export default function GridGenerator() {
+
     // Hooks
     const dispatch = useDispatch();
     const gridContainerRef = useRef();
 
-    useEffect(() => console.log(gridContainerRef.current.offsetWidth));
-
     // Store
     const gridGeneratorState = useSelector((state) => state.gridGenerator);
     const { grid: gridState, color: colorState } = gridGeneratorState;
+
+    const dispatchAppState = {
+        setAlert: (alert) => dispatch(setAlert(alert))
+    }
 
     const dispatchGridState = {
         setGridListLength: (value) => dispatch(setGridListLength(value)),
@@ -68,7 +72,6 @@ export default function GridGenerator() {
             <Box
                 sx={{
                     display: 'flex',
-                    height: '100%',
                     borderBottom: 1,
                     borderTop: 1,
                     borderColor: '#CECECE',
@@ -84,6 +87,7 @@ export default function GridGenerator() {
                     <Settings
                         gridState={gridState}
                         colorState={colorState}
+                        dispatchAppState={dispatchAppState}
                         dispatchGridState={dispatchGridState}
                         dispatchColorState={dispatchColorState}
                         gridContainerRef={gridContainerRef}
@@ -92,12 +96,12 @@ export default function GridGenerator() {
                 <Box
                     ref={gridContainerRef}
                     sx={{
+                        height: '549px',
                         flex: '1',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: colorState.backgroundColor,
-                        overflow: 'scroll'
                     }}
                 >
                     <Grid
@@ -110,6 +114,7 @@ export default function GridGenerator() {
             <CodeGenerator
                 gridState={gridState}
                 colorState={colorState}
+                dispatchAppState={dispatchAppState}
             />
         </>
     );

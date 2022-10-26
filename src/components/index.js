@@ -1,1 +1,1 @@
-export { default as GridGenerator } from './GridGenerator/GridGenerator'
+export { default as Alert } from './Alert/Alert';

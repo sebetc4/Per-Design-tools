@@ -4,10 +4,11 @@ import { Box, Button } from '@mui/material';
 import { generateHtmlCode, generateJsCode, generateCssCode } from './utils';
 import { Textarea } from './components';
 
-export default function CodeGenerator({ gridState, colorState }) {
+export default function CodeGenerator({ gridState, colorState, dispatchAppState }) {
     // Props
     const { gridList, boxSize, gridColumns, boxBorderRadius, spaceBetweenBox } = gridState;
     const { colorList, mainBoxesColor, backgroundColor } = colorState;
+    const { setAlert } = dispatchAppState;
 
     // State
     const [generaredCode, setGeneratedCode] = useState(false);
@@ -18,10 +19,20 @@ export default function CodeGenerator({ gridState, colorState }) {
     const generateCode = () => {
         setHtmlCode(generateHtmlCode());
         setCssCode(
-            generateCssCode(gridColumns, boxSize, boxBorderRadius, spaceBetweenBox, mainBoxesColor, backgroundColor, gridList, colorList)
+            generateCssCode(
+                gridColumns,
+                boxSize,
+                boxBorderRadius,
+                spaceBetweenBox,
+                mainBoxesColor,
+                backgroundColor,
+                gridList,
+                colorList
+            )
         );
         setJsCode(generateJsCode(gridList, colorList));
         setGeneratedCode(true);
+        setAlert({type: 'success', message: 'Code généré!'})
     };
 
     return (

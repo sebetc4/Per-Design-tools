@@ -10,10 +10,12 @@ export default function TabPanel({ children, tabValue, index, id, ariaLabelledby
             aria-labelledby={ariaLabelledby}
             {...other}
             style={{
-                minHeight: '500px',
+                height: '500px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                overflowY: 'auto'
+                
             }}
         >
             {tabValue === index && children}

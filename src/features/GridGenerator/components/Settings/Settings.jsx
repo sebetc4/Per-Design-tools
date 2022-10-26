@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { ColorSettings, GridSettings, TabPanel } from './components';
 
-export default function Settings({ gridState, colorState, dispatchGridState, dispatchColorState, gridContainerRef }) {
+export default function Settings({ gridState, colorState, dispatchAppState, dispatchGridState, dispatchColorState, gridContainerRef }) {
 
     // Hooks
     const theme = useTheme();
@@ -51,6 +51,9 @@ export default function Settings({ gridState, colorState, dispatchGridState, dis
                 onChangeIndex={(index) => setTabValue(index)}
             >
                 <TabPanel
+                    sx={{
+                        minHeight: '800px'
+                    }}
                     tabValue={tabValue}
                     index={0}
                     dir={theme.direction}
@@ -59,6 +62,7 @@ export default function Settings({ gridState, colorState, dispatchGridState, dis
                 >
                     <GridSettings
                         gridState={gridState}
+                        dispatchAppState={dispatchAppState}
                         dispatchGridState={dispatchGridState}
                         gridContainerRef={gridContainerRef}
                     />

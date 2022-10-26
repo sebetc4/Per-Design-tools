@@ -13,7 +13,7 @@ import {
     SET_MAIN_BOXES_COLOR,
     SET_BACKGROUND_COLOR,
     SET_BOX_BORDER_RADIUS,
-} from '../actions/gridGenerator..actions';
+} from '../actions/gridGenerator.actions';
 
 const getHexColor = () => '#' + ((Math.random() * 0xffffff) << 0).toString(16);
 
@@ -45,7 +45,7 @@ const gridGeneratorDefaultState = {
     },
 };
 
-export default function appReducer(state = gridGeneratorDefaultState, action) {
+export default function gridGeneratorReducer(state = gridGeneratorDefaultState, action) {
     switch (action.type) {
         // Grid
         case SET_GRID_LIST_LENGTH: {
