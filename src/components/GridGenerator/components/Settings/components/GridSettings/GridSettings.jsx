@@ -9,7 +9,9 @@ import { TbBorderRadius } from 'react-icons/tb';
 
 import { InputBox } from './components';
 
-export default function gridState({ gridState, dispatchGridState }) {
+export default function gridState({ gridState, dispatchGridState, gridContainerRef }) {
+
+    // Props
     const { gridList, gridColumns, boxSize, boxBorderRadius, spaceBetweenBox } = gridState;
     const { setGridListLength, setGridColumns, setBoxSize, setBoxBorderRadius, setSpaceBetweenBox } = dispatchGridState;
 
@@ -20,7 +22,7 @@ export default function gridState({ gridState, dispatchGridState }) {
                 label={'Nombre de case'}
                 min={1}
                 max={999}
-                initialValue={gridList.length}
+                storeValue={gridList.length}
                 handleValueChange={(value) => setGridListLength(value)}
             />
             <InputBox
@@ -28,23 +30,35 @@ export default function gridState({ gridState, dispatchGridState }) {
                 label={'Nombre de colonne'}
                 min={1}
                 max={100}
-                initialValue={gridColumns}
+                storeValue={gridColumns}
                 handleValueChange={(value) => setGridColumns(value)}
+                checkOutContainer={(value) =>
+                    !(
+                        value < gridColumns ||
+                        value * boxSize + (value - 1) * spaceBetweenBox < gridContainerRef.current.offsetWidth
+                    )
+                }
             />
             <InputBox
                 icon={<CropFreeIcon />}
                 label={'Taille de case'}
                 min={10}
                 max={50}
-                initialValue={boxSize}
+                storeValue={boxSize}
                 handleValueChange={(value) => setBoxSize(value)}
+                checkOutContainer={(value) =>
+                    !(
+                        value < boxSize ||
+                        gridColumns * value + (gridColumns - 1) * spaceBetweenBox < gridContainerRef.current.offsetWidth
+                    )
+                }
             />
             <InputBox
                 icon={<TbBorderRadius size={24} />}
                 label={'Border radius'}
                 min={0}
                 max={100}
-                initialValue={boxBorderRadius}
+                storeValue={boxBorderRadius}
                 handleValueChange={(value) => setBoxBorderRadius(value)}
             />
             <InputBox
@@ -52,8 +66,14 @@ export default function gridState({ gridState, dispatchGridState }) {
                 label={'Espace entre les cases'}
                 min={0}
                 max={20}
-                initialValue={spaceBetweenBox}
+                storeValue={spaceBetweenBox}
                 handleValueChange={(value) => setSpaceBetweenBox(value)}
+                checkOutContainer={(value) =>
+                    !(
+                        value < spaceBetweenBox ||
+                        gridColumns * boxSize + (gridColumns - 1) * value < gridContainerRef.current.offsetWidth
+                    )
+                }
             />
         </Box>
     );

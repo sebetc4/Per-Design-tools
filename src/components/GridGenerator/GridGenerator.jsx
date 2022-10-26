@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     addColor,
@@ -22,6 +22,9 @@ import { CodeGenerator, Grid, Settings } from './components';
 export default function GridGenerator() {
     // Hooks
     const dispatch = useDispatch();
+    const gridContainerRef = useRef();
+
+    useEffect(() => console.log(gridContainerRef.current.offsetWidth));
 
     // Store
     const gridGeneratorState = useSelector((state) => state.gridGenerator);
@@ -83,15 +86,18 @@ export default function GridGenerator() {
                         colorState={colorState}
                         dispatchGridState={dispatchGridState}
                         dispatchColorState={dispatchColorState}
+                        gridContainerRef={gridContainerRef}
                     />
                 </Box>
                 <Box
+                    ref={gridContainerRef}
                     sx={{
                         flex: '1',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: colorState.backgroundColor,
+                        overflow: 'scroll'
                     }}
                 >
                     <Grid

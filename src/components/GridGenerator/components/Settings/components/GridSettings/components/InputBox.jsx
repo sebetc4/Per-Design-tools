@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
+
 import { Box, Slider, Typography, Grid, Input } from '@mui/material';
 
-export default function InputBo({ icon, label, min, max, initialValue, handleValueChange }) {
+export default function InputBo({ icon, label, min, max, storeValue, handleValueChange, checkOutContainer }) {
+    
     // State
-    const [value, setValue] = useState(initialValue);
+    const [inputValue, setInputValue] = useState(storeValue);
 
+    // Check if value is valid and set it
     useEffect(() => {
-        handleValueChange(value);
-    }, [value]);
+        if (checkOutContainer && checkOutContainer(inputValue)) {
+            setInputValue(storeValue);
+            console.log('error');
+        } else {
+            inputValue >= min && inputValue <= max && handleValueChange(inputValue);
+        }
+    }, [inputValue]);
 
-    const handleSliderChange = (e) => setValue(e.target.value);
+    const handleSliderChange = (e) => setInputValue(e.target.value);
 
-    const handleInputChange = (e) => setValue(parseInt(e.target.value));
+    const handleInputChange = (e) => setInputValue(parseInt(e.target.value));
 
     const handleBlur = (e) => {
-        if (value < min) {
-            setValue(min);
-        } else if (value > max) {
-            setValue(max);
-        }
+        inputValue < min && setInputValue(min);
+        inputValue > max && setInputValue(max);
     };
 
     return (
@@ -35,7 +40,7 @@ export default function InputBo({ icon, label, min, max, initialValue, handleVal
                     xs
                 >
                     <Slider
-                        value={typeof value === 'number' ? value : 0}
+                        value={typeof inputValue === 'number' ? inputValue : 0}
                         onChange={handleSliderChange}
                         aria-labelledby={label}
                         min={min}
@@ -44,11 +49,11 @@ export default function InputBo({ icon, label, min, max, initialValue, handleVal
                 </Grid>
                 <Grid item>
                     <Input
-                        value={value}
+                        value={inputValue}
                         onChange={handleInputChange}
                         size='small'
                         sx={{
-                            width:'50px'
+                            width: '50px',
                         }}
                         onBlur={handleBlur}
                         inputProps={{
@@ -56,7 +61,7 @@ export default function InputBo({ icon, label, min, max, initialValue, handleVal
                             min,
                             max,
                             type: 'number',
-                            'aria-labelledby': {label},
+                            'aria-labelledby': { label },
                         }}
                     />
                 </Grid>

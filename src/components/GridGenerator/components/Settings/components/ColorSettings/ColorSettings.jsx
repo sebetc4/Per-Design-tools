@@ -4,7 +4,7 @@ import { SketchPicker } from 'react-color';
 import { Box } from '@mui/material';
 import { ColorList } from './components';
 
-export default function ColorSettings({ gridState, colorState, dispatchColorState }) {
+export default function ColorSettings({ colorState, dispatchColorState }) {
     // Props
     const { setHexCurrentColor, setBackgroundColor, setMainBoxesColor } = dispatchColorState;
 

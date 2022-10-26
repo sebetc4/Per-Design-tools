@@ -6,7 +6,8 @@ import { useTheme } from '@mui/material/styles';
 
 import { ColorSettings, GridSettings, TabPanel } from './components';
 
-export default function Settings({ gridState, colorState, dispatchGridState, dispatchColorState }) {
+export default function Settings({ gridState, colorState, dispatchGridState, dispatchColorState, gridContainerRef }) {
+
     // Hooks
     const theme = useTheme();
 
@@ -59,6 +60,7 @@ export default function Settings({ gridState, colorState, dispatchGridState, dis
                     <GridSettings
                         gridState={gridState}
                         dispatchGridState={dispatchGridState}
+                        gridContainerRef={gridContainerRef}
                     />
                 </TabPanel>
                 <TabPanel
